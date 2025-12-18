@@ -1,0 +1,39 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <a href="{{ routes.root_url }}" class="logo">
+        {{ shop.name }}
+      </a>
+      
+      <nav class="nav">
+        <ul class="nav-menu">
+          {% for link in linklists.main-menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        {% render 'header-search' %}
+        
+        <a href="{{ routes.account_url }}" class="account-link">
+          {% render 'icon-account' %}
+          {{ 'customer.log_in' | t }}
+        </a>
+        
+        <a href="{{ routes.cart_url }}" class="cart-link">
+          {% render 'icon-cart-empty' %}
+          {{ 'templates.cart.cart' | t }}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

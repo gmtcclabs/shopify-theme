@@ -1,0 +1,109 @@
+<div class="featured-collection">
+  <div class="container">
+    <h2>{{ section.settings.title }}</h2>
+    <div class="product-grid">
+      {% if collections[section.settings.collection].products.size > 0 %}
+        {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+          <div class="product-card">
+            <a href="{{ product.url }}">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.title }}">
+              {% else %}
+                <div class="placeholder-image">
+                  <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
+                    <rect width="300" height="200" fill="#EAEFEB"/>
+                    <text x="150" y="100" text-anchor="middle" fill="#374C7A" font-size="14">Product Image</text>
+                  </svg>
+                </div>
+              {% endif %}
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.price | money }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Placeholder products when no collection is selected -->
+        <div class="product-card">
+          <div class="placeholder-image">
+            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
+              <rect width="300" height="200" fill="#EAEFEB"/>
+              <circle cx="150" cy="100" r="30" fill="#374C7A"/>
+              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Gut Health Test</text>
+            </svg>
+          </div>
+          <h3>Comprehensive Gut Analysis</h3>
+          <p>$199.00</p>
+        </div>
+        
+        <div class="product-card">
+          <div class="placeholder-image">
+            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
+              <rect width="300" height="200" fill="#EAEFEB"/>
+              <rect x="100" y="70" width="100" height="60" fill="#374C7A" rx="5"/>
+              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Probiotic Blend</text>
+            </svg>
+          </div>
+          <h3>Advanced Probiotic Formula</h3>
+          <p>$89.00</p>
+        </div>
+        
+        <div class="product-card">
+          <div class="placeholder-image">
+            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
+              <rect width="300" height="200" fill="#EAEFEB"/>
+              <path d="M120 80 L180 80 L180 120 L120 120 Z" fill="#374C7A"/>
+              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Digestive Support</text>
+            </svg>
+          </div>
+          <h3>Digestive Enzyme Complex</h3>
+          <p>$59.00</p>
+        </div>
+        
+        <div class="product-card">
+          <div class="placeholder-image">
+            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
+              <rect width="300" height="200" fill="#EAEFEB"/>
+              <ellipse cx="150" cy="100" rx="40" ry="25" fill="#374C7A"/>
+              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Fiber Supplement</text>
+            </svg>
+          </div>
+          <h3>Prebiotic Fiber Blend</h3>
+          <p>$45.00</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "label": "Products to show",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}
