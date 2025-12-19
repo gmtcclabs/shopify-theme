@@ -33,7 +33,7 @@
         {%- if product.selected_or_first_available_variant.featured_media -%}
           <div class="product-media__main" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
             <img 
-              src="{{ product.selected_or_first_available_variant.featured_media | image_url: width: 600 }}"
+              src="{{ product.selected_or_first_available_variant.featured_media | image_url: width: 600 | default: (600 | placeholder_svg_tag: 'placeholder-image') }}"
               alt="{{ product.selected_or_first_available_variant.featured_media.alt | escape }}"
               style="width: 100%; height: auto; display: block;"
             >
@@ -116,9 +116,7 @@
             {%- unless product.has_only_default_variant -%}
               <variant-radios
                 class="no-js-hidden"
-                data-section="{{ section.id }}"
                 data-url="{{ product.url }}"
-                {{ block.shopify_attributes }}
               >
                 {%- for option in product.options_with_values -%}
                   <fieldset class="js product-form__input" style="margin-bottom: 1.5rem;">
@@ -128,14 +126,14 @@
                     {%- for value in option.values -%}
                       <input
                         type="radio"
-                        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        id="{{ forloop.index0 }}"
                         name="{{ option.name }}"
                         value="{{ value | escape }}"
                         form="{{ product_form_id }}"
                         {% if option.selected_value == value %}checked{% endif %}
                         style="margin-right: 0.5rem;"
                       >
-                      <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" style="margin-right: 1rem; cursor: pointer;">
+                      <label for="{{ forloop.index0 }}" style="margin-right: 1rem; cursor: pointer;">
                         {{ value }}
                       </label>
                     {%- endfor -%}
