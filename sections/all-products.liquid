@@ -3,17 +3,32 @@
 {%- endcomment -%}
 
 <div class="product-grid">
-  {% for product in collections.all.products %}
+  {%- for product in collections.all.products -%}
     <div class="product-card">
-      <img src="{{ product.featured_image | image_url: width: 300, height: 300 }}"
-           alt="{{ product.featured_image.alt }}"
-           width="300"
-           height="300">
-      <h2>{{ product.title }}</h2>
+      <a href="{{ product.url | within: collection }}">
+        {%- if product.featured_image != blank -%}
+          <img src="{{ product.featured_image | image_url: width: 300, height: 300 }}"
+               alt="{{ product.featured_image.alt }}"
+               width="300"
+               height="300">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        <h2>{{ product.title }}</h2>
+      </a>
       <p>{{ product.description }}</p>
       <p>{{ product.price | money }}</p>
+      {%- liquid
+        assign product_form_id = 'product-form-' | append: section.id | append: product.id
+      -%}
+      {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button type="submit" name="add" class="btn">
+          <span>{{ 'products.product.add_to_cart' | t }}</span>
+        </button>
+      {%- endform -%}
     </div>
-  {% endfor %}
+  {%- endfor -%}
 </div>
 
 {% schema %}

@@ -5,6 +5,12 @@
   "customer": {
     "log_in": "Log in"
   },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out"
+    }
+  },
   "templates": {
     "cart": {
       "cart": "Cart"
