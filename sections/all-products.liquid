@@ -1,0 +1,56 @@
+{%- comment -%}
+  This is a new section to display products from the Shopify account.
+{%- endcomment -%}
+
+{% graphql g %}
+query {
+  products(first: 10) {
+    edges {
+      node {
+        id
+        title
+        description
+        featuredImage {
+          url
+          altText
+          width
+          height
+        }
+        variants(first: 1) {
+          edges {
+            node {
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+}
+{% endgraphql %}
+
+<div class="product-grid">
+  {% for product in g.products.edges %}
+    <div class="product-card">
+      <img src="{{ product.node.featuredImage.url | image_url: width: 300, height: 300 }}"
+           alt="{{ product.node.featuredImage.altText }}"
+           width="300"
+           height="300">
+      <h2>{{ product.node.title }}</h2>
+      <p>{{ product.node.description }}</p>
+      <p>{{ product.node.variants.edges[0].node.price | money }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "All Products",
+  "settings": [],
+  "presets": [
+    {
+      "name": "All Products"
+    }
+  ]
+}
+{% endschema %}
