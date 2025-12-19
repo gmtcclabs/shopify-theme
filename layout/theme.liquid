@@ -38,6 +38,10 @@
     {% section 'footer' %}
 
     <script>
+      if (window.location.pathname.startsWith('/cart/')) {
+        window.location.href = window.location.href.replace('gmtccinsights.store', 'shop.gmtccinsights.store');
+      }
+
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',

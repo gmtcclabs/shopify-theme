@@ -2,20 +2,31 @@
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>{{ shop.name }}</h3>
-        <p>{{ section.settings.footer_text }}</p>
+        <h3>GMTCC Insight</h3>
+        <p>Curating tailor-made wellness roadmaps through advanced microbiome science.</p>
       </div>
+      
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>6/F Chung Fung Commercial Building,<br>
+        12 Canton Road, Tsim Sha Tsui,<br>
+        Hong Kong</p>
+        <p><a href="mailto:gmtcc@gmtccinsight.com">gmtcc@gmtccinsight.com</a></p>
+      </div>
+      
       <div class="footer-section">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="/pages/about">About</a></li>
-          <li><a href="/pages/contact">Contact</a></li>
-          <li><a href="/policies/privacy-policy">Privacy</a></li>
+          <li><a href="#science">Our Science</a></li>
+          <li><a href="#b2b">For Practitioners (B2B)</a></li>
+          <li><a href="/pages/terms">Terms of Service</a></li>
+          <li><a href="/pages/privacy">Privacy Policy</a></li>
         </ul>
       </div>
     </div>
+    
     <div class="footer-bottom">
-      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <p>&copy; {{ 'now' | date: '%Y' }} GMTCC Insight. All rights reserved.</p>
     </div>
   </div>
 </footer>
@@ -28,7 +39,7 @@
       "type": "textarea",
       "id": "footer_text",
       "label": "Footer text",
-      "default": "Your trusted partner in gut health and wellness."
+      "default": "Curating tailor-made wellness roadmaps through advanced microbiome science."
     }
   ]
 }

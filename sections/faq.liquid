@@ -1,0 +1,99 @@
+<section class="faq-section">
+  <div class="container">
+    <h2>Frequently Asked Questions</h2>
+    
+    <div class="faq-list">
+      {% for block in section.blocks %}
+        <div class="faq-item" data-faq-item>
+          <button class="faq-question" data-faq-toggle>
+            {{ block.settings.question }}
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" data-faq-answer>
+            <div class="faq-answer-content">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const faqToggles = document.querySelectorAll('[data-faq-toggle]');
+  
+  faqToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const faqItem = this.closest('[data-faq-item]');
+      const answer = faqItem.querySelector('[data-faq-answer]');
+      const icon = this.querySelector('.faq-icon');
+      
+      // Close other open FAQs
+      document.querySelectorAll('[data-faq-item].active').forEach(item => {
+        if (item !== faqItem) {
+          item.classList.remove('active');
+          item.querySelector('.faq-icon').textContent = '+';
+        }
+      });
+      
+      // Toggle current FAQ
+      faqItem.classList.toggle('active');
+      icon.textContent = faqItem.classList.contains('active') ? '−' : '+';
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I collect my sample? Is it difficult?",
+            "answer": "Not at all. Your Gut Discovery Kit comes with a specialized, non-invasive collection tube. You only need a tiny amount of sample (about the size of a grain of rice). It takes less than 5 minutes in the privacy of your own home."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does it take to get results?",
+            "answer": "Once you mail back your sample using the pre-paid envelope, it takes approximately 3-4 weeks for our lab to complete the 16S rRNA sequencing and analysis. You will receive a notification as soon as your report is ready in the portal."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the difference between Option A and Option B?",
+            "answer": "Option A is a 'Discovery' path designed to give you data and a baseline. Option B is our 'Action' path (recommended). Option B includes the test PLUS a 20-minute 1-on-1 consultation to explain the data and a complimentary BRT check to verify your personalized supplement protocol."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

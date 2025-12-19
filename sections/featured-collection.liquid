@@ -1,108 +1,137 @@
-<div class="featured-collection">
+<section class="pricing-section">
   <div class="container">
-    <h2>{{ section.settings.title }}</h2>
-    <div class="product-grid">
+    <div class="product-grid-modern">
       {% if collections[section.settings.collection].products.size > 0 %}
-        {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
-          <div class="product-card">
-            <a href="{{ product.url }}">
-              {% if product.featured_image %}
-                <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.title }}">
+        {% for product in collections[section.settings.collection].products limit: 2 %}
+          <div class="pricing-card {% if forloop.index == 2 %}popular{% endif %}">
+            {% if forloop.index == 2 %}
+              <div class="popular-badge">Most Popular</div>
+            {% endif %}
+            
+            <div class="pricing-header">
+              <h3 class="option-label">Option {{ forloop.index | replace: '1', 'A' | replace: '2', 'B' }}</h3>
+              <h4 class="product-title">{{ product.title }}</h4>
+              
+              {% if forloop.index == 1 %}
+                <div class="pricing-subtitle">Understand Your Body</div>
               {% else %}
-                <div class="placeholder-image">
-                  <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
-                    <rect width="300" height="200" fill="#EAEFEB"/>
-                    <text x="150" y="100" text-anchor="middle" fill="#374C7A" font-size="14">Product Image</text>
-                  </svg>
+                <div class="pricing-subtitle">
+                  Complete Action Plan + 1-on-1 Strategy Call<br>
+                  <small>(92% of customers choose this path)</small>
                 </div>
               {% endif %}
-              <h3>{{ product.title }}</h3>
-              <p>{{ product.price | money }}</p>
-            </a>
+            </div>
+
+            <div class="product-description">
+              {{ product.description }}
+            </div>
+
+            <div class="pricing-info">
+              <div class="current-price">HKD {{ product.price | money_without_currency }}</div>
+            </div>
+
+            <div class="features-list">
+              {% if forloop.index == 1 %}
+                <div class="feature">✓ At-home microbiome collection kit</div>
+                <div class="feature">✓ Advanced 16S rRNA lab analysis from a clinically-trusted laboratory</div>
+                <div class="feature">✓ Personalized GMT Microbiome Report</div>
+                <div class="feature">✓ Upgrade to Option B (Complete Action Plan) anytime</div>
+              {% else %}
+                <div class="feature">✓ Everything in Gut Discovery Kit</div>
+                <div class="feature">✓ Kit + Lab Analysis + Report</div>
+                <div class="feature-plus">PLUS</div>
+                <div class="feature">✓ 20-min Personalized Consultation (Video/Phone)</div>
+                <div class="feature">✓ Complimentary 20-min BRT Check</div>
+                <div class="feature-note">We use German bio-resonance technology to verify your results and confirm your personalized probiotic protocol to ensure the best solution for your body.</div>
+              {% endif %}
+            </div>
+
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="pricing-btn {% if forloop.index == 2 %}primary{% endif %}">
+                {% if forloop.index == 1 %}
+                  Get My Gut Report – HKD {{ product.price | money_without_currency }}
+                {% else %}
+                  Yes! I want the Complete Action Plan
+                {% endif %}
+              </button>
+            </form>
+
+            {% if forloop.index == 2 %}
+              <div class="priority-note">Includes priority shipping & processing</div>
+            {% endif %}
           </div>
         {% endfor %}
       {% else %}
-        <!-- Placeholder products when no collection is selected -->
-        <div class="product-card">
-          <div class="placeholder-image">
-            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
-              <rect width="300" height="200" fill="#EAEFEB"/>
-              <circle cx="150" cy="100" r="30" fill="#374C7A"/>
-              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Gut Health Test</text>
-            </svg>
+        <!-- Fallback products with your exact specifications -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="option-label">Option A</h3>
+            <h4 class="product-title">Gut Discovery Kit</h4>
+            <div class="pricing-subtitle">Understand Your Body</div>
           </div>
-          <h3>Comprehensive Gut Analysis</h3>
-          <p>$199.00</p>
+          <div class="product-description">
+            The essential starting point. Advanced 16S rRNA sequencing to establish a crucial baseline for your well-being. Includes at-home microbiome collection kit, advanced 16S rRNA lab analysis from a clinically-trusted laboratory, and personalized GMT Microbiome Report.
+          </div>
+          <div class="pricing-info">
+            <div class="current-price">HKD 3000.0</div>
+          </div>
+          <div class="features-list">
+            <div class="feature">✓ At-home microbiome collection kit</div>
+            <div class="feature">✓ Advanced 16S rRNA lab analysis from a clinically-trusted laboratory</div>
+            <div class="feature">✓ Personalized GMT Microbiome Report</div>
+            <div class="feature">✓ Upgrade to Option B (Complete Action Plan) anytime</div>
+          </div>
+          <a href="/collections/all" class="pricing-btn">Get My Gut Report – HKD 3000.0</a>
         </div>
-        
-        <div class="product-card">
-          <div class="placeholder-image">
-            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
-              <rect width="300" height="200" fill="#EAEFEB"/>
-              <rect x="100" y="70" width="100" height="60" fill="#374C7A" rx="5"/>
-              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Probiotic Blend</text>
-            </svg>
+
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-header">
+            <h3 class="option-label">Option B</h3>
+            <h4 class="product-title">Complete Gut Restoration</h4>
+            <div class="pricing-subtitle">
+              Complete Action Plan + 1-on-1 Strategy Call<br>
+              <small>(92% of customers choose this path)</small>
+            </div>
           </div>
-          <h3>Advanced Probiotic Formula</h3>
-          <p>$89.00</p>
-        </div>
-        
-        <div class="product-card">
-          <div class="placeholder-image">
-            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
-              <rect width="300" height="200" fill="#EAEFEB"/>
-              <path d="M120 80 L180 80 L180 120 L120 120 Z" fill="#374C7A"/>
-              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Digestive Support</text>
-            </svg>
+          <div class="product-description">
+            Complete Action Plan + 1-on-1 Strategy Call. A collaborative approach to verify your data and create a proactive optimization roadmap for 3-month transformation. Includes everything in Gut Discovery Kit PLUS 20-min Personalized Consultation and Complimentary 20-min BRT Check using German bio-resonance technology.
           </div>
-          <h3>Digestive Enzyme Complex</h3>
-          <p>$59.00</p>
-        </div>
-        
-        <div class="product-card">
-          <div class="placeholder-image">
-            <svg width="300" height="200" viewBox="0 0 300 200" fill="#EAEFEB">
-              <rect width="300" height="200" fill="#EAEFEB"/>
-              <ellipse cx="150" cy="100" rx="40" ry="25" fill="#374C7A"/>
-              <text x="150" y="140" text-anchor="middle" fill="#374C7A" font-size="12">Fiber Supplement</text>
-            </svg>
+          <div class="pricing-info">
+            <div class="current-price">HKD 3900.0</div>
           </div>
-          <h3>Prebiotic Fiber Blend</h3>
-          <p>$45.00</p>
+          <div class="features-list">
+            <div class="feature">✓ Everything in Gut Discovery Kit</div>
+            <div class="feature">✓ Kit + Lab Analysis + Report</div>
+            <div class="feature-plus">PLUS</div>
+            <div class="feature">✓ 20-min Personalized Consultation (Video/Phone)</div>
+            <div class="feature">✓ Complimentary 20-min BRT Check</div>
+            <div class="feature-note">We use German bio-resonance technology to verify your results and confirm your personalized probiotic protocol to ensure the best solution for your body.</div>
+          </div>
+          <a href="/collections/all" class="pricing-btn primary">
+            Yes! I want the Complete Action Plan
+          </a>
+          <div class="priority-note">Includes priority shipping & processing</div>
         </div>
       {% endif %}
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
-  "name": "Featured Collection",
+  "name": "Product Pricing",
   "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Featured Products"
-    },
     {
       "type": "collection",
       "id": "collection",
       "label": "Collection"
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "min": 2,
-      "max": 12,
-      "step": 2,
-      "label": "Products to show",
-      "default": 4
     }
   ],
   "presets": [
     {
-      "name": "Featured Collection"
+      "name": "Product Pricing"
     }
   ]
 }

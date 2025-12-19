@@ -1,0 +1,85 @@
+<section class="scientific-leadership">
+  <div class="container">
+    <div class="section-header">
+      <h2>Scientific Leadership</h2>
+      <p class="section-subtitle">Agile, research-driven, and moving with science.</p>
+      <p>At GMTCC Insight, we don't just test; we investigate. Our methods are rooted in the latest marine microbial biology and functional wellness research.</p>
+    </div>
+
+    <div class="leadership-content">
+      <div class="leader-profile">
+        <div class="leader-info">
+          <h3>{{ section.settings.leader_name | default: 'Dr. Sanjay Nagarkar' }}</h3>
+          <p class="leader-title">{{ section.settings.leader_title | default: 'Chief Science Officer • HKU Marine Microbial Biology' }}</p>
+          <blockquote class="leader-quote">
+            "{{ section.settings.leader_quote | default: 'Our mission is to translate complex microbiome data into actionable health strategies.' }}"
+          </blockquote>
+          
+          <div class="media-links">
+            <a href="{{ section.settings.interview_link }}" class="media-link">
+              <span class="icon">▶</span>
+              Watch Dr. Sanjay's Latest Interview
+            </a>
+            <div class="media-secondary">
+              <a href="{{ section.settings.podcast_link }}">Listen to Podcast</a>
+              <a href="{{ section.settings.youtube_link }}">Watch on YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="expertise-tags">
+        <span class="tag">Functional Wellness</span>
+        <span class="tag">Microbiology</span>
+        <span class="tag">Personalized Care</span>
+        <span class="tag">Actionable Data</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Scientific Leadership",
+  "settings": [
+    {
+      "type": "text",
+      "id": "leader_name",
+      "label": "Leader Name",
+      "default": "Dr. Sanjay Nagarkar"
+    },
+    {
+      "type": "text",
+      "id": "leader_title",
+      "label": "Leader Title",
+      "default": "Chief Science Officer • HKU Marine Microbial Biology"
+    },
+    {
+      "type": "textarea",
+      "id": "leader_quote",
+      "label": "Leader Quote",
+      "default": "Our mission is to translate complex microbiome data into actionable health strategies."
+    },
+    {
+      "type": "url",
+      "id": "interview_link",
+      "label": "Interview Link"
+    },
+    {
+      "type": "url",
+      "id": "podcast_link",
+      "label": "Podcast Link"
+    },
+    {
+      "type": "url",
+      "id": "youtube_link",
+      "label": "YouTube Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scientific Leadership"
+    }
+  ]
+}
+{% endschema %}
